@@ -257,10 +257,18 @@
             btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Memverifikasi...'; btn.disabled = true; lucide.createIcons({ root: btn });
 
             try {
-                if(typeof SCRIPT_URL === 'undefined') throw new Error("Config.js tidak terpanggil!");
+                if(typeof SCRIPT_URL === 'undefined') throw new Error("Konfigurasi server tidak tersedia!");
                 const res = await fetch(SCRIPT_URL, { 
                     method: 'POST', body: JSON.stringify({ action: 'login_and_dashboard', email: document.getElementById('email').value, password: document.getElementById('pass').value })
                 });
+                
+                if (!res.ok) {
+                    const errorMsg = res.status === 404 ? "Server tidak ditemukan (404)" : 
+                                   res.status === 502 || res.status === 504 ? "Server sedang sibuk/down (Gateway Error)" :
+                                   `Gagal koneksi server! (Status: ${res.status})`;
+                    throw new Error(errorMsg);
+                }
+
                 const r = await res.json();
                 
                 if(r.status === 'success') {
@@ -309,7 +317,7 @@
                     btn.innerHTML = originalText; btn.disabled = false; lucide.createIcons({ root: btn });
                 }
             } catch (err) { 
-                showToast('Gagal koneksi server!', 'error'); 
+                showToast(err.message || 'Gagal koneksi server!', 'error'); 
                 btn.innerHTML = originalText; btn.disabled = false; lucide.createIcons({ root: btn });
             }
         };
@@ -321,10 +329,13 @@
             btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Mengirim...'; btn.disabled = true; lucide.createIcons({ root: btn });
 
             try {
-                if(typeof SCRIPT_URL === 'undefined') throw new Error("Config.js tidak terpanggil!");
+                if(typeof SCRIPT_URL === 'undefined') throw new Error("Konfigurasi server tidak tersedia!");
                 const res = await fetch(SCRIPT_URL, { 
                     method: 'POST', body: JSON.stringify({ action: 'forgot_password', email: document.getElementById('email-forgot').value })
                 });
+                
+                if (!res.ok) throw new Error(`Gagal koneksi server! (Status: ${res.status})`);
+
                 const r = await res.json();
                 
                 if(r.status === 'success') {
@@ -335,7 +346,7 @@
                     showToast(r.message, "error");
                 }
             } catch (err) {
-                showToast('Gagal koneksi server!', 'error');
+                showToast(err.message || 'Gagal koneksi server!', 'error');
             } finally {
                 btn.innerHTML = originalText; btn.disabled = false; lucide.createIcons({ root: btn });
             }

@@ -245,7 +245,7 @@
                     if (input && typeof Request !== 'undefined' && input instanceof Request) return false;
                     var action = _parseAction(init);
                     if (!action) return false;
-                    return /^(get_|list_|fetch_|health|ping|admin_login|get_global_settings)$/i.test(action);
+                    return /^(get_|list_|fetch_|health|ping|admin_login|login_and_dashboard|get_global_settings)$/i.test(action);
                 };
                 var _isCacheableAction = function (action) {
                     if (!action) return false;
@@ -372,7 +372,7 @@
                     var url = _getUrl(input);
                     var canRetry = _isRetryableRequest(input, init);
                     var maxAttempts = canRetry ? 4 : 1;
-                    var timeoutMs = 20000;
+                    var timeoutMs = 25000;
                     var lastErr = null;
                     for (var attempt = 1; attempt <= maxAttempts; attempt++) {
                         try {
