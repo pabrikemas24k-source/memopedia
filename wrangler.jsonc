@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ISI DENGAN NAMA GITHUB",
+  "name": "memopedia-id",
   "main": "_worker.js",
   "compatibility_date": "2025-09-27",
   "observability": {
@@ -15,9 +15,9 @@
     "nodejs_compat"
   ],
   "vars": {
-    "ALLOWED_ORIGINS": "https://memopedia.id,https://www.memopedia.id",
-    "APP_GAS_URL": "ISI LINK WEB APP GAS",
-    "MOOTA_GAS_URL": "ISI LINK WEB APP GAS",
+    "ALLOWED_ORIGINS": "https://prodig.zhost.digital,https://www.prodig.zhost.digital",
+    "APP_GAS_URL": "https://script.google.com/macros/s/AKfycbyQmbFiq6_-LOJc92V6HG8pQ62gncmNRntGeTq8JbP_swru7BNsWaIfqg4lX0TIrvrk/exec",
+    "MOOTA_GAS_URL": "https://script.google.com/macros/s/AKfycbyQmbFiq6_-LOJc92V6HG8pQ62gncmNRntGeTq8JbP_swru7BNsWaIfqg4lX0TIrvrk/exec",
     "MOOTA_TOKEN": "TOKEN MOOTA"
   }
 }
